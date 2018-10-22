@@ -4,24 +4,28 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
+@WebListener
 public class OnlineListener implements HttpSessionListener,HttpSessionAttributeListener {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	//登录的时候触发
+	//登录成功的时候触发
 	public void attributeAdded(HttpSessionBindingEvent event) {
 		HttpSession session = event.getSession();
+		//放到最大域空间
 		ServletContext application = session.getServletContext();
 		Map<String, String> online = (Map<String, String>) application.getAttribute("online");
 		if(online==null) {
 			online = new HashMap<>();
 		}
+		//得到刚登陆成功的用户名
 		String username = session.getAttribute("user").toString();
 		online.put(session.getId(), username);
 		application.setAttribute("online", online);
@@ -48,6 +52,7 @@ public class OnlineListener implements HttpSessionListener,HttpSessionAttributeL
 			online = new HashMap<>();
 		}
 		String username = session.getAttribute("user").toString();
+		//此时用户为游客
 		username = username==null?"游客":username;
 		online.put(session.getId(), username);
 		application.setAttribute("online", online);

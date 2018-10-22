@@ -158,11 +158,13 @@ public class UserController extends HttpServlet {
 					CookieUtils.createCookie(username, req, resp, -1);
 					break;
 				}
-
+				//修改用户状态
 				HttpSession session = req.getSession();
+				//触发监听器
 				session.setAttribute("user", user.getUsername());
 				Online ol = onlineService.getOnlineBySsid(session.getId());
 				if (ol != null) {
+					//将数据库中的用户信息更新为真实用户名
 					ol.setUsername(username);
 					onlineService.updateOnline(ol);
 				}
@@ -174,6 +176,7 @@ public class UserController extends HttpServlet {
 			}
 			// 若为登录状态
 		} else {
+			//修改用户状态
 			HttpSession session = req.getSession();
 			session.setAttribute("user", username);
 			Online ol = onlineService.getOnlineBySsid(session.getId());

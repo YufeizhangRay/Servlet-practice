@@ -32,9 +32,11 @@ public class OnlineRequestListener implements ServletRequestListener {
 	}
 
 	@Override
+	//只要访问资源，就会触发此方法
 	public void requestInitialized(ServletRequestEvent event) {
 		//1.通过请求拿到访问者的基本信息
 		HttpServletRequest request = (HttpServletRequest) event.getServletRequest();
+		//getSession()都会触发sessionCreated()方法
 		HttpSession session = request.getSession();
 		//获取sessionid
 		String ssid = session.getId();
@@ -45,6 +47,7 @@ public class OnlineRequestListener implements ServletRequestListener {
 		System.out.println("请求初始化方法开始了----" + page);
 		//获取用户名称
 		String username = (String) session.getAttribute("user");
+		//第一次访问用户名为游客
 		username = username==null?"游客":username;
 		
 		//操作数据库之前,把这些信息封装到一个Online对象
