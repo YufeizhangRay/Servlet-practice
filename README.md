@@ -51,7 +51,7 @@ JSP(Java Server Pages)：
 8.`page` 如同this一样，代表整个JSP页面自身   
 9.`out` 输出 ，但是尽量使用表达式输出
   
-输入输出：`request`、`response`、`out`   
+>输入输出：`request`、`response`、`out`   
 作用域间的通信：`session`、`application`、`pageContext`、`request`   
 servlet对象：`page`、`config`  
 错误对象：`exception`  
