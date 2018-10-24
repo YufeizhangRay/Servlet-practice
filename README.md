@@ -29,7 +29,7 @@ GenericServlet抽象类：实现了`ServletConfig接口`
 >若开发者每次都去实现`ServletConfig接口`，则每次都需要实现大量的接口方法，但是这些方法大部分却很少会用到。`GenericServlet抽象类`本身实现了`ServletConfig接口`，替开发者实现了平时用不到的`ServletConfig接口`方法(同时将`service`方法重定义为`abstract`方法，以留给子类实现),从而减少了开发的代码量。  
   
 HttpServlet抽象类：继承了`GenericServlet抽象类`并实现了`service`方法  
->此时开发者仍然需要每次都将参数`ServletRequset`与`ServletRespouse`强制转换成`HttpServletRequset`与`HttpServletRespouse`，以此拿到方法名去判断请求的类型，再根据不同的请求类型做出不同的响应，仍然很繁琐，需要简化。于是`HttpServlet`在`service`里调用了`重载`的`service`方法，直接传入已经强制转换好的`HttpServletRequset`与`HttpServletRespouse`为参数，并且在重载的`servic`e方法中根据方法类型“`GET`”或者“`POST`”选择调用`doGet`或者`doPost`方法。
+>此时开发者仍然需要每次都将参数`ServletRequset`与`ServletRespouse`强制转换成`HttpServletRequset`与`HttpServletRespouse`，以此拿到方法名去判断请求的类型，再根据不同的请求类型做出不同的响应，仍然很繁琐，需要简化。于是`HttpServlet`在`service`里调用了`重载`的`service`方法，直接传入已经强制转换好的`HttpServletRequset`与`HttpServletRespouse`为参数，并且在重载的`service`方法中根据方法类型“`GET`”或者“`POST`”选择调用`doGet`或者`doPost`方法。
 此时继承`HttpServlet抽象类`的子类只需要根据不同的业务需求`重写``doGet`和`doPost`方法即可，大大减少了繁琐的操作。  
   
 
